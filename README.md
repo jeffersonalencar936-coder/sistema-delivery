@@ -15,14 +15,14 @@ O objetivo do sistema é oferecer uma plataforma de gerenciamento de delivery qu
 
 A solução visa automatizar todo o processo de entrega de comida, desde a criação do pedido até a finalização da entrega. Com isso, espera-se reduzir o tempo de espera dos clientes, melhorar a organização interna dos restaurantes e garantir mais controle para a equipe de delivery.
 
-## Funcionalidades principais
-1. Cadastro e gerenciamento de restaurantes.
-2. Cadastro e gerenciamento de entregadores.
-3. Criação, atualização e acompanhamento de pedidos.
-4. Atribuição automática de entregadores para pedidos disponíveis.
-5. Rastreamento em tempo real do status da entrega.
-6. Visualização de histórico de pedidos e entregas.
-7. Controle de disponibilidade de entregadores.
+## Funcionalidades Principais
+
+1. Cadastro de clientes com nome, telefone e endereço.
+2. Cadastro de restaurantes com nome, endereço e avaliação.
+3. Cadastro de entregadores com controle de status (disponível, em entrega, indisponível).
+4. Criação de pedidos com múltiplos itens, incluindo cálculo automático do valor total.
+5. Atribuição automática de entregadores disponíveis aos pedidos, com atualização de status.
+
 
 ## Estrutura de classes planejada
 - `Restaurante`
