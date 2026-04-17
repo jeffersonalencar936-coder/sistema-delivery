@@ -7,7 +7,7 @@ Gerencie restaurantes, entregadores, pedidos e acompanhe entregas em tempo real.
 - Ingrid Ferreira de Sousa - RGM: 45999279
 - Jefferson Aparecido Faria de Alencar - RGM: 46100440
 - Guilherme Leite Tavares - RGM: 45871884
-- Stephanie Vitoria Bessa dos Santos - RGM: 
+- Stephanie Vitoria Bessa dos Santos - RGM: 45619930
 - Matheus Caetano Rocha - RGM: 45998400
 
 ## Objetivo do sistema
