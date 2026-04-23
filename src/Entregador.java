@@ -1,49 +1,11 @@
-public class Entregador {
-    private int id;
-    private String nome;
-    private String telefone;
+public class Entregador extends Usuario {
     private String statusDisponibilidade;
     private String localizacaoAtual;
 
     public Entregador(int id, String nome, String telefone, String statusDisponibilidade, String localizacaoAtual) {
-        setId(id);
-        setNome(nome);
-        setTelefone(telefone);
+        super(id, nome, telefone);
         setStatusDisponibilidade(statusDisponibilidade);
         setLocalizacaoAtual(localizacaoAtual);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID do entregador deve ser maior que zero.");
-        }
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome do entregador não pode ser vazio.");
-        }
-        this.nome = nome.trim();
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        if (telefone == null || telefone.trim().isEmpty()) {
-            throw new IllegalArgumentException("Telefone do entregador não pode ser vazio.");
-        }
-        this.telefone = telefone.trim();
     }
 
     public String getStatusDisponibilidade() {
@@ -70,6 +32,18 @@ public class Entregador {
             throw new IllegalArgumentException("Localização atual não pode ser vazia.");
         }
         this.localizacaoAtual = localizacaoAtual.trim();
+    }
+
+    @Override
+    public String getInformacoes() {
+        return super.getInformacoes() + ", Status: " + statusDisponibilidade + ", Localização: " + localizacaoAtual;
+    }
+
+    @Override
+    public void exibirBoasVindas() {
+        System.out.println("Bem-vindo(a), entregador(a) " + nome + "!");
+        System.out.println("Seu status atual: " + statusDisponibilidade);
+        System.out.println("Localização: " + localizacaoAtual);
     }
 
     @Override

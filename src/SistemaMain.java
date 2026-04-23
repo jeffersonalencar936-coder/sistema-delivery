@@ -10,6 +10,7 @@ public class SistemaMain {
     private static List<Restaurante> restaurantes = new ArrayList<>();
     private static List<Pedido> pedidos = new ArrayList<>();
     private static List<Entregador> entregadores = new ArrayList<>();
+    private static List<Usuario> usuarios = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -18,7 +19,7 @@ public class SistemaMain {
         do {
             exibirMenu();
             opcao = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -38,6 +39,12 @@ public class SistemaMain {
                     break;
                 case 6:
                     listarEntregadores();
+                    break;
+                case 7:
+                    listarUsuariosPolimorfico();
+                    break;
+                case 8:
+                    testarPolimorfismo();
                     break;
                 case 0:
                     System.out.println("Encerrando sistema...");
@@ -59,6 +66,8 @@ public class SistemaMain {
         System.out.println("4. Criar Pedido");
         System.out.println("5. Listar Pedidos");
         System.out.println("6. Listar Entregadores");
+        System.out.println("7. Listar Usuários (Polimorfismo)");
+        System.out.println("8. Testar Polimorfismo");
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -77,6 +86,7 @@ public class SistemaMain {
 
         Cliente cliente = new Cliente(clientes.size() + 1, nome, telefone, endereco);
         clientes.add(cliente);
+        usuarios.add(cliente);
 
         System.out.println("Cliente cadastrado com sucesso!");
     }
@@ -130,6 +140,7 @@ public class SistemaMain {
         );
 
         entregadores.add(entregador);
+        usuarios.add(entregador);
 
         System.out.println("Entregador cadastrado com sucesso!");
     }
@@ -154,8 +165,8 @@ public class SistemaMain {
             return;
         }
 
-        Cliente cliente = clientes.get(0); // simplificado
-        Restaurante restaurante = restaurantes.get(0); // simplificado
+        Cliente cliente = clientes.get(0);
+        Restaurante restaurante = restaurantes.get(0);
 
         List<ItemPedido> itens = new ArrayList<>();
 
@@ -186,7 +197,6 @@ public class SistemaMain {
                 "em preparação"
         );
 
-        // 🔥 VINCULAR ENTREGADOR
         if (!entregadores.isEmpty()) {
             for (Entregador e : entregadores) {
                 if (e.getStatusDisponibilidade().equalsIgnoreCase("disponível")) {
@@ -215,6 +225,39 @@ public class SistemaMain {
             for (Pedido p : pedidos) {
                 System.out.println(p);
             }
+        }
+    }
+
+    private static void listarUsuariosPolimorfico() {
+        System.out.println("\n--- LISTA DE USUÁRIOS (POLIMORFISMO) ---");
+
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado.");
+        } else {
+            for (Usuario u : usuarios) {
+                System.out.println("\n" + u.getInformacoes());
+            }
+        }
+    }
+
+    private static void testarPolimorfismo() {
+        System.out.println("\n=== TESTE DE POLIMORFISMO ===");
+        
+        if (usuarios.isEmpty()) {
+            System.out.println("Cadastre clientes e entregadores primeiro!");
+            return;
+        }
+        
+        System.out.println("\n--- Chamando exibirBoasVindas() para cada usuário ---");
+        for (Usuario u : usuarios) {
+            u.exibirBoasVindas();
+            System.out.println("---");
+        }
+        
+        System.out.println("\n--- Informações detalhadas de cada usuário ---");
+        for (Usuario u : usuarios) {
+            System.out.println("\nTipo: " + u.getClass().getSimpleName());
+            System.out.println(u.getInformacoes());
         }
     }
 }

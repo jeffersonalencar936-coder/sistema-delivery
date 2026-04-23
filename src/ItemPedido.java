@@ -9,6 +9,15 @@ public class ItemPedido {
         setPrecoUnitario(precoUnitario);
     }
 
+    public ItemPedido(String nome, double precoUnitario) {
+        this(nome, 1, precoUnitario);
+    }
+
+    public ItemPedido(String nome, int quantidade, double precoUnitario, String observacao) {
+        this(nome, quantidade, precoUnitario);
+        System.out.println("Observação adicionada: " + observacao);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -44,6 +53,32 @@ public class ItemPedido {
 
     public double calcularSubtotal() {
         return quantidade * precoUnitario;
+    }
+
+    public double calcularSubtotal(double percentualDesconto) {
+        double subtotal = quantidade * precoUnitario;
+        return subtotal - (subtotal * percentualDesconto / 100);
+    }
+
+    public void exibirInformacoes() {
+        System.out.println("Item: " + nome);
+        System.out.println("Quantidade: " + quantidade);
+        System.out.println("Preço Unitário: R$ " + precoUnitario);
+        System.out.println("Subtotal: R$ " + calcularSubtotal());
+    }
+
+    public void exibirInformacoes(boolean mostrarDetalhes) {
+        System.out.println("=== INFORMAÇÕES DO ITEM ===");
+        System.out.println("Item: " + nome);
+        System.out.println("Quantidade: " + quantidade);
+        System.out.println("Preço Unitário: R$ " + precoUnitario);
+        System.out.println("Subtotal: R$ " + calcularSubtotal());
+        
+        if (mostrarDetalhes) {
+            System.out.println("--- Detalhes Extras ---");
+            System.out.println("Valor com 10% desconto: R$ " + calcularSubtotal(10));
+            System.out.println("Valor com 20% desconto: R$ " + calcularSubtotal(20));
+        }
     }
 
     @Override

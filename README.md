@@ -1,7 +1,7 @@
-# Sistema de Delivery de Comida
+# Sistema de Delivery de Comida - FOODFLY
 
 ## Tema
-Gerencie restaurantes, entregadores, pedidos e acompanhe entregas em tempo real.
+Gerencia restaurantes, entregadores, pedidos e acompanhe entregas em tempo real.
 
 ## Integrantes do grupo
 - Ingrid Ferreira de Sousa - RGM: 45999279
