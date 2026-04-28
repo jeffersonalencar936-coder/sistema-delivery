@@ -1,10 +1,42 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Ignored default folder with query files
-/queries/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-# Editor-based HTTP Client requests
-/httpRequests/
+*.class
+*.jar
+*.war
+*.ear
+
+
+*.log
+
+.idea/
+*.iml
+
+.project
+.classpath
+.settings/
+
+.vscode/
+
+/target/
+/build/
+/out/
+
+.DS_Store
+Thumbs.db
+
+*.env
+.env
+.env.*
+
+config.properties
+application.properties
+
+# ========================
+# Arquivos locais
+# ========================
+*.sqlite
+*.db
+
+# ========================
+# Backup
+# ========================
+*.bak
+*.tmp
