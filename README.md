@@ -115,3 +115,15 @@ O sistema será uma aplicação de linha de comando. Os usuários interagirão c
 
 ### 3.2 Requisitos de Banco de Dados
 O sistema utilizará PostgreSQL para persistência de dados. O banco de dados incluirá tabelas para restaurantes, produtos, clientes, entregadores, pedidos e uma tabela intermediária para a relação muitos-para-muitos entre pedidos e produtos (`ItemPedido`).
+
+# Como rodar o projeto
+
+1. Criar banco:
+CREATE DATABASE delivery;
+
+2. Executar o schema.sql
+
+3. Configurar conexão:
+URL: jdbc:postgresql://localhost:5432/delivery
+USER: postgres
+PASSWORD: sua_senha
