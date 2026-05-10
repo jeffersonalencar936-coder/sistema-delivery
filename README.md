@@ -1,4 +1,4 @@
-# 🚚 Sistema de Delivery
+# 🚚 Sistema de Delivery - FoodFly
 
 Um sistema completo de gerenciamento de delivery em Java, com implementação de interfaces, CRUD funcional, e regra de negócio complexa com cálculo de desconto progressivo e taxa de entrega variável.
 
