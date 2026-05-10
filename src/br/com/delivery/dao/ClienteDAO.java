@@ -1,7 +1,7 @@
-package dao;
+package br.com.delivery.dao;
 
-import model.Cliente;
-import util.ConexaoBD;
+import br.com.delivery.model.Cliente;
+import br.com.delivery.util.ConexaoBD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,6 +23,29 @@ public class ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Cliente buscarPorId(int id) {
+        String sql = "SELECT * FROM cliente WHERE id = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Cliente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("telefone"),
+                        rs.getString("endereco")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Cliente> listar() {

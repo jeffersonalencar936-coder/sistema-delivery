@@ -1,4 +1,4 @@
-package model;
+package br.com.delivery.model;
 
 public class Cliente extends Usuario {
 

@@ -1,4 +1,5 @@
-package model;
+package br.com.delivery.model;
+
 public class ItemPedido {
     private String nome;
     private int quantidade;

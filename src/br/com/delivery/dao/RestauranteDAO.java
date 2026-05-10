@@ -1,7 +1,7 @@
-package dao;
+package br.com.delivery.dao;
 
-import model.Restaurante;
-import util.ConexaoBD;
+import br.com.delivery.model.Restaurante;
+import br.com.delivery.util.ConexaoBD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,6 +23,29 @@ public class RestauranteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Restaurante buscarPorId(int id) {
+        String sql = "SELECT * FROM restaurante WHERE id = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Restaurante(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getDouble("avaliacao")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Restaurante> listar() {

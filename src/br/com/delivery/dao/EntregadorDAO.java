@@ -1,7 +1,7 @@
-package dao;
+package br.com.delivery.dao;
 
-import model.Entregador;
-import util.ConexaoBD;
+import br.com.delivery.model.Entregador;
+import br.com.delivery.util.ConexaoBD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +24,30 @@ public class EntregadorDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public Entregador buscarPorId(int id) {
+        String sql = "SELECT * FROM entregador WHERE id = ?";
+        try (Connection conn = ConexaoBD.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Entregador(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("telefone"),
+                        rs.getString("status"),
+                        rs.getString("localizacao")
+                );
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public List<Entregador> listar() {

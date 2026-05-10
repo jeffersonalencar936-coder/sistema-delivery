@@ -1,4 +1,216 @@
-# Sistema de Delivery de Comida - FOODFLY
+# 🚚 Sistema de Delivery
+
+Um sistema completo de gerenciamento de delivery em Java, com implementação de interfaces, CRUD funcional, e regra de negócio complexa com cálculo de desconto progressivo e taxa de entrega variável.
+
+## ✅ Funcionalidades Implementadas
+
+### 1. **Interfaces com Contratos de Comportamento**
+
+#### 📋 `Auditavel`
+- Registra logs de ações em pedidos
+- Mantém histórico completo com timestamps
+- Método `registrarLog(String acao)`: Registra uma ação
+- Método `obterHistorico()`: Retorna histórico formatado
+
+**Implementada por:** `Pedido`
+
+#### 🧮 `Calculavel`
+- Define contrato para cálculos de valores
+- Método `calcularSubtotal()`: Calcula subtotal dos itens
+- Método `calcularDesconto()`: Calcula desconto aplicável
+- Método `calcularValorTotal()`: Calcula valor final
+
+**Implementada por:** `Pedido`
+
+#### 📊 `Relatorio`
+- Define contrato para geração de relatórios
+- Método `gerarRelatorio()`: Gera relatório formatado
+- Método `exportarDados(String formato)`: Exporta em CSV, JSON ou XML
+
+**Implementada por:** `Restaurante`
+
+---
+
+### 2. **CRUD Completo (100% Funcional)**
+
+#### Clientes
+- ✅ **Create:** Cadastrar novo cliente
+- ✅ **Read:** Listar todos ou buscar por ID
+- ✅ **Update:** Atualizar dados de cliente
+- ✅ **Delete:** Remover cliente
+
+#### Restaurantes
+- ✅ **Create:** Cadastrar novo restaurante
+- ✅ **Read:** Listar todos ou buscar por ID
+- ✅ **Update:** Atualizar dados de restaurante
+- ✅ **Delete:** Remover restaurante
+- ✅ **Relatórios:** Gerar e exportar dados em múltiplos formatos
+
+#### Entregadores
+- ✅ **Create:** Cadastrar novo entregador
+- ✅ **Read:** Listar todos ou buscar por ID
+- ✅ **Update:** Atualizar dados de entregador
+- ✅ **Delete:** Remover entregador
+
+#### Pedidos
+- ✅ **Create:** Criar pedido com validações
+- ✅ **Read:** Listar pedidos ou buscar por ID
+- ✅ **Update:** Atualizar status e atribuir entregador
+- ✅ **Delete:** Remover pedido
+
+---
+
+### 3. **Regra de Negócio Complexa: Cálculo de Valor Final**
+
+#### 📊 Desconto Progressivo (baseado no subtotal):
+```
+Subtotal > R$300    → 15% de desconto
+Subtotal > R$200    → 10% de desconto
+Subtotal > R$100    → 5% de desconto
+Subtotal ≤ R$100    → Sem desconto
+```
+
+#### 🚚 Taxa de Entrega Variável (baseada no valor com desconto):
+```
+Valor Final ≥ R$150 → Taxa R$5.00
+Valor Final ≥ R$100 → Taxa R$7.00
+Valor Final < R$100  → Taxa R$10.00
+```
+
+#### 💰 Exemplo de Cálculo:
+```
+Subtotal: R$250.00
+Desconto (10%): R$25.00
+Valor com desconto: R$225.00 ✓ Qualifica para taxa reduzida
+Taxa de Entrega: R$5.00
+VALOR FINAL: R$230.00
+```
+
+---
+
+### 4. **Banco de Dados Integrado (PostgreSQL)**
+
+#### Tabelas Criadas:
+- `cliente` - Dados de clientes
+- `restaurante` - Dados de restaurantes
+- `entregador` - Dados de entregadores
+- `pedido` - Pedidos com referências às entidades
+- `item_pedido` - Itens de cada pedido
+- `log_auditoria` - Histórico de ações (para auditoria)
+
+#### Integração JDBC:
+- Conexão via `ConexaoBD.java`
+- Preparado para PostgreSQL localhost:5432
+- Suporta transactions e cascata de deleção
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+sistema-delivery/
+├── src/
+│   ├── br/com/[seuprojeto]/
+│   │   ├── model/              (Entidades)
+│   │   │   ├── Cliente.java
+│   │   │   ├── Restaurante.java
+│   │   │   ├── Entregador.java
+│   │   │   ├── Pedido.java (implements Auditavel, Calculavel)
+│   │   │   ├── ItemPedido.java
+│   │   │   ├── Usuario.java
+│   │   │   └── SistemaMain.java
+│   │   │
+│   │   ├── dao/                (Data Access Object - CRUD)
+│   │   │   ├── ClienteDAO.java
+│   │   │   ├── RestauranteDAO.java
+│   │   │   ├── EntregadorDAO.java
+│   │   │   └── PedidoDAO.java
+│   │   │
+│   │   ├── service/            (Regras de Negócio)
+│   │   │   ├── PedidoService.java
+│   │   │   └── ClienteService.java
+│   │   │
+│   │   └── util/               (Utilitários e Interfaces)
+│   │       ├── ConexaoBD.java
+│   │       ├── Auditavel.java (interface)
+│   │       ├── Calculavel.java (interface)
+│   │       └── Relatorio.java (interface)
+│   │
+│   └── schema.sql              (Criação das tabelas)
+│
+└── README.md                   (Este arquivo)
+```
+
+---
+
+## 🚀 Como Executar
+
+### Pré-requisitos:
+- Java 11+
+- PostgreSQL instalado e rodando
+- Driver PostgreSQL JDBC
+
+### Passos:
+1. **Criar banco de dados:**
+   ```sql
+   createdb delivery
+   psql -U postgres -d delivery -f schema.sql
+   ```
+
+2. **Compilar:**
+   ```bash
+   javac -d bin src/model/*.java src/dao/*.java src/service/*.java src/util/*.java
+   ```
+
+3. **Executar:**
+   ```bash
+   java -cp bin model.SistemaMain
+   ```
+
+---
+
+## 🎯 Exemplo de Uso
+
+### Criar um Pedido:
+```
+1. Selecionar: "14 - Criar Pedido"
+2. Inserir ID do Cliente: 1
+3. Inserir ID do Restaurante: 1
+4. Adicionar itens:
+   - Pizza Grande: 1x R$50.00
+   - Refrigerante 2L: 2x R$10.00
+   - Sobremesa: 1x R$25.00
+5. Sistema calcula automaticamente o valor final com desconto e taxa
+```
+
+### Visualizar Relatório:
+```
+1. Selecionar: "16 - Ver Detalhes do Pedido"
+2. Inserir ID: 1
+3. Sistema exibe:
+   - Itens do pedido
+   - Cálculos de desconto e taxa
+   - Histórico de auditoria completo
+```
+
+---
+
+## 📝 Anotações Importantes
+
+- ✅ Todas as classes implementam `@Override` nos métodos de interface
+- ✅ Validações robustas em todos os DAOs e Services
+- ✅ Histórico de auditoria registrado automaticamente
+- ✅ Transições de status validadas
+- ✅ Suporte a múltiplos formatos de exportação (CSV, JSON, XML)
+- ✅ Código organizado e documentado
+
+---
+
+## 👨‍💻 Autor
+Sistema desenvolvido como projeto acadêmico de Sistema de Delivery em Java.
+
+**Data:** Maio de 2026
+ de Comida - FOODFLY
 
 ## Tema
 Gerencia restaurantes, entregadores, pedidos e acompanhe entregas em tempo real.
